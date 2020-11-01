@@ -1,24 +1,26 @@
-import { shallowMount, VueWrapper } from '@vue/test-utils'
+import { VueWrapper } from '@vue/test-utils'
+import cloneDeep from 'lodash/cloneDeep'
+import prepare from '@/config/jest/utils/prepare'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
-import config from '@/components/SvgIcon/SvgIcon.dataset'
+import dataset from '@/components/SvgIcon/SvgIcon.dataset'
 
+const { props } = dataset
+
+let propsData: any
 let wrapper: VueWrapper<any>
 
-const propsData = config.props
-
-describe('[SvgIcon]', () => {
+describe('SvgIcon', () => {
 
   beforeEach(() => {
-    wrapper = shallowMount(SvgIcon, {
-      propsData,
-    })
+    propsData = cloneDeep(props)
+    wrapper = prepare(SvgIcon, { propsData })
   })
 
   afterEach(() => {
     wrapper.unmount()
   })
 
-  describe('Props', () => {
+  describe('Rendering', () => {
 
     it('should render props types in .svg-icon class attributes', () => {
       const svgIcon = wrapper.find('.svg-icon')

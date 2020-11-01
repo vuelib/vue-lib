@@ -20,7 +20,6 @@ module.exports = {
     'max-len': ['error', { code: 150 }],
     'prefer-promise-reject-errors': 'off',
     'no-param-reassign': ['error', { props: false }],
-    '@typescript-eslint/interface-name-prefix': 'off',
     'no-restricted-syntax': ['error', 'ForInStatement'],
     'no-console': ['warn', { allow: ['info', 'warn', 'error'] }],
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

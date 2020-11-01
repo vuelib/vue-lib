@@ -28,4 +28,10 @@ export default defineComponent({
 <style lang="sass">
 .title
   margin: 0
+
+  &--h1
+    color: $primary
+
+  &--h2
+    color: $secondary
 </style>

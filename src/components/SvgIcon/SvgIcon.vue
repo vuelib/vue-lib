@@ -31,8 +31,6 @@ export default defineComponent({
 
 <style lang="sass">
 .svg-icon
-  fill: black
-  width: 1.5rem
-  height: 1.5rem
-  overflow: hidden
+  width: 100%
+  height: 100%
 </style>

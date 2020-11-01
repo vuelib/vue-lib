@@ -4,12 +4,14 @@ import Index from '@/components/Index.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    name: 'index',
     component: Index,
   },
-  // {
-  //   path: '/title',
-  //   component: () => import(/* webpackChunkName: "title" */ '../components/Title/Title.vue'),
-  // },
+  {
+    name: 'title',
+    path: '/title',
+    component: () => import(/* webpackChunkName: "title" */ '../components/Title/Title.vue'),
+  },
 ]
 
 const router = createRouter({

@@ -1,17 +1,19 @@
-import { shallowMount, VueWrapper } from '@vue/test-utils'
+import { VueWrapper } from '@vue/test-utils'
+import cloneDeep from 'lodash/cloneDeep'
 import Title from '@/components/Title/Title.vue'
-import config from '@/components/Title/Title.dataset'
+import prepare from '@/config/jest/utils/prepare'
+import dataset from '@/components/Title/Title.dataset'
 
+const { props } = dataset
+
+let propsData: any
 let wrapper: VueWrapper<any>
 
-const propsData = config.props
-
-describe('[Title]', () => {
+describe('Title', () => {
 
   beforeEach(() => {
-    wrapper = shallowMount(Title, {
-      propsData,
-    })
+    propsData = cloneDeep(props)
+    wrapper = prepare(Title, { propsData })
   })
 
   afterEach(() => {
