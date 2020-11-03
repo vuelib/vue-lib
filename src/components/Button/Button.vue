@@ -1,21 +1,22 @@
 <template>
   <button
+    data-button
     class="button"
     :class="[
       `button--${type}`,
       `button--${size}`,
-      disabled ? 'button--disabled' : '',
       outlined ? 'button--outlined' : '',
       reversed ? 'button--reversed' : '',
     ]"
     :disabled="disabled"
+    @click="$emit('click', $event)"
   >
     <SvgIcon
       class="button__icon"
       :icon="icon"
       v-if="icon"
     />
-    {{ label }}
+    <slot />
   </button>
 </template>
 
@@ -26,9 +27,9 @@ import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 
 export default defineComponent({
   name: 'Button',
+  emits: ['click'],
   props: {
     icon: { type: String, default: '' },
-    label: { type: String, required: true },
     disabled: { type: Boolean, default: false },
     outlined: { type: Boolean, default: false },
     reversed: { type: Boolean, default: false },
@@ -45,11 +46,6 @@ export default defineComponent({
   },
   components: {
     SvgIcon,
-  },
-  setup() {
-
-    return {
-    }
   },
 })
 </script>

@@ -2,10 +2,10 @@
   <component
     data-bond
     class="bond"
-    :href="to"
     :to="!isExternal ? to : undefined"
     :is="isExternal ? 'a' : 'router-link'"
     :target="isExternal ? '_blank' : '_self'"
+    :href="isExternal ? to : routeVue.path"
     :class="[
       type ? `bond--${type}` : '',
       { 'bond--reversed': reversed },
@@ -21,8 +21,10 @@
 </template>
 
 <script lang="ts">
+import router from '@/router'
 import { computed, defineComponent } from 'vue'
 import { typesValidator } from '@/scripts/validators'
+import { RouteLocation, _RouteLocationBase } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 
 export default defineComponent({
@@ -30,7 +32,15 @@ export default defineComponent({
   props: {
     icon: { type: String, default: '' },
     reversed: { type: Boolean, default: false },
-    to: { type: [Object, String], required: true },
+    to: {
+      required: true,
+      type: [Object, String],
+      validator: (prop: string|_RouteLocationBase) => {
+        if (typeof prop === 'string') return true
+        if (typeof prop === 'object') return Object.keys(prop).some((key) => key === 'name')
+        return false
+      },
+    },
     type: {
       type: String,
       default: 'primary',
@@ -40,15 +50,22 @@ export default defineComponent({
   components: {
     SvgIcon,
   },
-  setup(props) {
+  setup(props: { to: _RouteLocationBase|string|unknown}) {
     /**
      * @desc Bond redirection
      * string if external link (ex. https://www.google.com/)
-     * object if internal link (ex. { name: index, path: '/' }
+     * object if internal link (ex. { name: 'index', ... }
     */
+
     const isExternal = computed<boolean>(() => typeof props.to === 'string')
 
+    const routeVue = computed<RouteLocation|null>(() => {
+      if (typeof props.to === 'object') return router.resolve({ name: (props.to as _RouteLocationBase).name as string|symbol|undefined })
+      return null
+    })
+
     return {
+      routeVue,
       isExternal,
     }
   },
@@ -58,10 +75,11 @@ export default defineComponent({
 <style lang="sass">
 .bond
   $self: &
-  align-items: center
+  cursor: pointer
   flex-direction: row
   display: inline-flex
   text-decoration: none
+  align-items: baseline
 
   &:hover
     filter: brightness(1.5)

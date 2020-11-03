@@ -1,5 +1,6 @@
 <template>
   <component
+    data-title
     class="title"
     :is="tag"
     :class="`title--${tag}`"
@@ -30,8 +31,8 @@ export default defineComponent({
   margin: 0
 
   &--h1
-    color: $primary
+    font-size: 2rem
 
   &--h2
-    color: $secondary
+    font-size: 1.5rem
 </style>

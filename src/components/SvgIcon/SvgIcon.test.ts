@@ -1,6 +1,6 @@
 import { VueWrapper } from '@vue/test-utils'
+import { prepareShallow } from '@/config/jest/utils/prepare'
 import cloneDeep from 'lodash/cloneDeep'
-import prepare from '@/config/jest/utils/prepare'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 import dataset from '@/components/SvgIcon/SvgIcon.dataset'
 
@@ -13,7 +13,7 @@ describe('SvgIcon', () => {
 
   beforeEach(() => {
     propsData = cloneDeep(props)
-    wrapper = prepare(SvgIcon, { propsData })
+    wrapper = prepareShallow(SvgIcon, { propsData })
   })
 
   afterEach(() => {
@@ -23,15 +23,11 @@ describe('SvgIcon', () => {
   describe('Rendering', () => {
 
     it('should render props types in .svg-icon class attributes', () => {
-      const svgIcon = wrapper.find('.svg-icon')
-      let classTypes = ''
-      for (const type of propsData.type.split(' ')) classTypes += ` svg-icon--${type}`
-      expect(svgIcon.attributes('class')).toEqual(`svg-icon ${classTypes.substr(1)}`)
+      expect(wrapper.find('[data-svg]').classes()).toContain(`svg-icon--${props.type}`)
     })
 
-    it('should render props icon in .cta__content xlink:href attributes', () => {
-      const content = wrapper.find('.svg-icon__content')
-      expect(content.attributes('href')).toEqual(`#icon-${propsData.icon}`)
+    it('should render href attributes in data-use', () => {
+      expect(wrapper.find('[data-use]').attributes('href')).toEqual(`#icon-${props.icon}`)
     })
   })
 })

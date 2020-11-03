@@ -3,11 +3,9 @@ BLOCKED:
 - Picture: Lazyload
 
 WIP:
-- Button: Test
+- Input
 
 TODO:
-- Event Link & Button
-- Input
 - Input Validation
 - Form
 - Carousel
@@ -17,7 +15,7 @@ TODO:
 - CheckBox
 - Radio
 - Toggle
-- Dropdown
+- Dropdown ({ id: string|number; label: string })
 
 COMING:
 - Storybook

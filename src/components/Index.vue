@@ -33,10 +33,18 @@
         Bond
       </div>
       <Bond
+        type="primary"
+        to="https://google.com"
+        style="margin-right: 10px;"
+      >
+        Bond
+      </Bond>
+      <Bond
         reversed
         type="secondary"
         icon="placeholder"
-        :to="{ name: 'title' }"
+        style="margin-right: 10px;"
+        :to="{ name: 'svgIcon' }"
       >
         Bond
       </Bond>
@@ -58,25 +66,29 @@
       <Button
         size="small"
         type="primary"
-        label="Button"
         style="margin-right: 10px;"
-      />
+      >
+        Button
+      </Button>
       <Button
         reversed
         outlined
         size="medium"
-        label="Button"
         type="secondary"
         icon="placeholder"
         style="margin-right: 10px;"
-      />
+        @click="handleEvent"
+      >
+        Button
+      </Button>
       <Button
         disabled
         size="large"
-        label="Button"
         type="secondary"
         style="margin-right: 10px;"
-      />
+      >
+        Button
+      </Button>
     </div>
 
     <!-- Picture -->
@@ -116,6 +128,15 @@ export default defineComponent({
     SvgIcon,
     Picture,
     ProgressBar,
+  },
+  setup() {
+    function handleEvent(event: Event) {
+      console.info('in handleEvent', event)
+    }
+
+    return {
+      handleEvent,
+    }
   },
 })
 </script>

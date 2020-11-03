@@ -3,6 +3,6 @@ export default {
     reversed: false,
     to: '/disney-land',
     type: 'primary',
-    icon: 'dummy-icon',
+    icon: 'placeholder',
   },
 }

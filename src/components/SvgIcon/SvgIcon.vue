@@ -1,10 +1,12 @@
 <template>
   <svg
+    data-svg
     class="svg-icon"
     aria-hidden="true"
     :class="`svg-icon--${type}`"
   >
     <use
+      data-use
       class="svg-icon__content"
       :xlink:href="`#icon-${icon}`"
     />
@@ -13,8 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
-const typeValidator = ['primary']
+import { typesValidator } from '@/scripts/validators'
 
 export default defineComponent({
   name: 'SvgIcon',
@@ -23,7 +24,7 @@ export default defineComponent({
     type: {
       type: String,
       default: 'primary',
-      validator: (prop: string) => typeValidator.includes(prop),
+      validator: (prop: string) => typesValidator(prop),
     },
   },
 })
@@ -33,4 +34,13 @@ export default defineComponent({
 .svg-icon
   width: 100%
   height: 100%
+
+  &--primary
+    fill: $primary
+
+  &--secondary
+    fill: $secondary
+
+  &--tertiary
+    fill: $tertiary
 </style>
